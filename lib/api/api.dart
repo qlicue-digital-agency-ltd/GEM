@@ -1,0 +1,1 @@
+const api = "http://gem.qlicue.co.tz/API/api/";
