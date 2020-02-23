@@ -41,16 +41,19 @@ class ProfilePage extends StatelessWidget {
                 Expanded(
                   child: Stack(
                     children: <Widget>[
-                      Container(
-                        height: double.infinity,
-                        margin: const EdgeInsets.only(
-                            left: 30.0, right: 30.0, top: 10.0),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(30.0),
-                            child: Image.network(
-                              api + 'profile/' + user.profile.id.toString(),
-                              fit: BoxFit.cover,
-                            )),
+                      Center(
+                        child: Container(
+                          height: double.infinity,
+                          margin: const EdgeInsets.only(
+                            left: 30,right: 30,
+                               top: 10.0),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(30.0),
+                              child: Image.network(
+                                api + 'profile/' + user.profile.id.toString(),
+                                fit: BoxFit.cover,
+                              )),
+                        ),
                       ),
                       Container(
                         alignment: Alignment.topCenter,

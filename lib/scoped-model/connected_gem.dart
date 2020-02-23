@@ -12,6 +12,7 @@ import 'package:gem/models/category.dart';
 import 'package:gem/models/comment.dart';
 import 'package:gem/models/district.dart';
 import 'package:gem/models/education.dart';
+import 'package:gem/models/filters.dart';
 import 'package:gem/models/job.dart';
 import 'package:gem/models/profession.dart';
 import 'package:gem/models/profile.dart';
@@ -25,6 +26,7 @@ import 'package:gem/models/repos/trade_repository.dart';
 import 'package:gem/models/tip.dart';
 import 'package:gem/models/trade.dart';
 import 'package:gem/models/user.dart';
+import 'package:gem/service/shared/shared_pref.dart';
 import 'package:gem/util/util.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -34,6 +36,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 mixin ConnectedGemModel on Model {
+  /// Shared preference DB
+  SharedPref _sharedPref = SharedPref();
+
   File _pickedImage;
   User _authenticatedUser;
 
@@ -929,6 +934,18 @@ mixin UserModel on ConnectedGemModel {
       @required education,
       @required employment,
       @required sex}) async {
+    ///filters.....
+    final _filter = Filters(
+        race: race,
+        religion: religion,
+        age: age,
+        height: height,
+        education: education,
+        employment: employment,
+        sex: sex);
+
+    _sharedPref.save('filters', _filter.toMap());
+
     String emp = "";
     if (employment == 'a') {
       emp = "employeed";

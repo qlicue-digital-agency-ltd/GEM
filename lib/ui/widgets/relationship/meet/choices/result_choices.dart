@@ -9,6 +9,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:gem/style/style.dart' as ThemeColor;
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import '../../../../../models/user.dart';
+
 class ResultChoice extends StatefulWidget {
   final MainModel model;
 
@@ -23,7 +25,7 @@ class _ResultChoiceState extends State<ResultChoice> {
   @override
   void initState() {
     if (widget.model.getAllUsers().isNotEmpty) {
-      _displayName = widget.model.getAllUsers()[0].profile.firstName;
+      _displayName = widget.model.searchedUsers[0].profile.firstName;
     }
     super.initState();
   }
@@ -62,15 +64,8 @@ class _ResultChoiceState extends State<ResultChoice> {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => ProfilePage(
-                                                user:
-                                                    model.searchedUsers[index],
-                                              )));
-                                },
+                                onTap: () => _showConfirmDialog(
+                                    context, model.searchedUsers[index]),
                                 child: ImageHolder(
                                   image: api +
                                       'profile/' +
@@ -109,7 +104,7 @@ class _ResultChoiceState extends State<ResultChoice> {
   void _setDisplayName(int index) {
     print(index);
     setState(() {
-      _displayName = widget.model.getAllUsers()[index].profile.firstName;
+      _displayName = widget.model.searchedUsers[index].profile.firstName;
     });
   }
 
@@ -117,34 +112,62 @@ class _ResultChoiceState extends State<ResultChoice> {
     Navigator.push(
         context, MaterialPageRoute(builder: (_) => SearchFriendsPage()));
   }
+
+  void _showConfirmDialog(BuildContext context, User user) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: ThemeColor.Colors.gemPrimaryColor,
+          title: Center(
+              child: Text(
+                  'Do you want to contact ' + user.profile.firstName + ' ?',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'itikaf',
+                      fontWeight: FontWeight.bold))),
+          content: SingleChildScrollView(
+              child: Text('Upgrade to premium at 10,000/-  per month',
+                  style: TextStyle(
+                      fontFamily: 'itikaf',
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold))),
+          actions: <Widget>[
+            RaisedButton.icon(
+              color: Colors.green,
+              textColor: Colors.white,
+              icon: Icon(Icons.check),
+              label: Text('UPGRADE',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'itikaf',
+                      fontWeight: FontWeight.bold)),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ProfilePage(
+                              user: user,
+                            )));
+                
+              },
+            ),
+            RaisedButton.icon(
+              color: Colors.red,
+              textColor: Colors.white,
+              icon: Icon(Icons.close),
+              label: Text(
+                'CANCEL',
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
-
-////////////////////////////
-// import 'package:flutter/material.dart';
-
-//   void main() => runApp(MyApp());
-
-//   class MyApp extends StatelessWidget {
-//     @override
-//     Widget build(BuildContext context) {
-//       return MaterialApp(
-//         title: 'Welcome to Flutter',
-//         home: Scaffold(
-//           appBar: AppBar(
-//             title: Text('Flutter Display Image Tutorial'),
-//           ),
-//           body: Stack(
-//             children: [
-//               Center(child: CircularProgressIndicator()),
-//               Center(
-//                 child: FadeInImage.memoryNetwork(
-//                   placeholder: kTransparentImage,
-//                   image: 'https://flutter.io/images/catalog-widget-placeholder.png',
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       );
-//     }
-//   }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ArchSampleTheme {
   static get theme {
     final originalTextTheme = ThemeData.light().textTheme;
-    final originalBody1 = originalTextTheme.body1;
+    final originalBody1 = originalTextTheme.bodyText1;
 
     return ThemeData.light().copyWith(
         primaryColor: Color(0xFF00d0cb),
@@ -13,7 +13,7 @@ class ArchSampleTheme {
         backgroundColor: Colors.grey[800],
         toggleableActiveColor: Colors.cyan[300],
         textTheme: originalTextTheme.copyWith(
-            body1:
+            bodyText1:
                 originalBody1.copyWith(decorationColor: Colors.transparent)));
   }
 }

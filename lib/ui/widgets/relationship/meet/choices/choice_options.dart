@@ -37,7 +37,7 @@ class _ChoiceOptionsDialogState extends State<ChoiceOptionsDialog> {
               color: Colors.grey.shade200,
               child: Text(
                 widget.category.name,
-                style: Theme.of(context).textTheme.title.copyWith(),
+                style: Theme.of(context).textTheme.bodyText1.copyWith(),
               ),
             ),
             SizedBox(height: 10.0),
