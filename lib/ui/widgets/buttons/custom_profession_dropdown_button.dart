@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gem/scoped-model/main.dart';
-import 'package:gem/ui/widgets/selectors/select_profession%C3%8F.dart';
+import 'package:gem/ui/widgets/selectors/select_profession.dart';
 
 class CustomProfessionDropdown extends StatelessWidget {
   final String title;

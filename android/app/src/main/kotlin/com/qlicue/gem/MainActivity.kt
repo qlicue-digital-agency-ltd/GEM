@@ -1,4 +1,5 @@
-package com.example.gem
+package com.qlicue
+        .gem
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

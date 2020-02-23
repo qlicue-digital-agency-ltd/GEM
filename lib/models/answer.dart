@@ -154,7 +154,7 @@ List<Answer> jobsList = <Answer>[
       isSelected: false,
       questionId: 5),
   Answer(
-      id: 3, alphabet: 'D', content: 'Both', isSelected: false, questionId: 5),
+      id: 3, alphabet: 'C', content: 'Self Employed', isSelected: false, questionId: 5),
 ];
 
 List<Answer> raceList = <Answer>[
