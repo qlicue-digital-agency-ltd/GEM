@@ -39,6 +39,8 @@ mixin ConnectedGemModel on Model {
   /// Shared preference DB
   SharedPref _sharedPref = SharedPref();
 
+  Filters _choiceFilters;
+
   File _pickedImage;
   User _authenticatedUser;
 
@@ -73,6 +75,8 @@ mixin ConnectedGemModel on Model {
   bool _doIhaveFriends = false;
 
   List<CategoryItem> _categoryItem = [];
+
+  Filters get getChoiceFilters => _choiceFilters;
 }
 
 mixin UtilityModel on ConnectedGemModel {
@@ -926,6 +930,15 @@ mixin UserModel on ConnectedGemModel {
 
   User get authenticatedUser => _authenticatedUser;
 
+  Future<void> loadFilters() async {
+    try {
+      Filters _filters = Filters.fromMap(await _sharedPref.read("filters"));
+
+      _choiceFilters = _filters;
+      notifyListeners();
+    } catch (err) {}
+  }
+
   Future<void> filterUsers(
       {@required race,
       @required religion,
@@ -984,17 +997,19 @@ mixin UserModel on ConnectedGemModel {
     }
 
     _searchedUsers = List<User>.from(_availableUsers.where((user) =>
-        (user.profile.education.toLowerCase() == education ||
-            user.profile.profession != emp ||
-            user.profile.skinColor.toLowerCase() == race ||
-            user.profile.dominion.toLowerCase() == religion ||
-            user.profile.height.toLowerCase() == height ||
-            _getAge(user.profile.birthday) >= _ageLow ||
+        (user.profile.education.toLowerCase() == education &&
+            user.profile.profession != emp &&
+            user.profile.skinColor.toLowerCase() == race &&
+            user.profile.dominion.toLowerCase() == religion &&
+            user.profile.height.toLowerCase() == height &&
+            _getAge(user.profile.birthday) >= _ageLow &&
             _getAge(user.profile.birthday) <= _ageHigh) &&
         user.profile.sex.toLowerCase() == sex));
 
+print('-------------------------------------');
     print(_searchedUsers);
     print(_searchedUsers.length);
+    print('-------------------------------------');
 
     notifyListeners();
   }

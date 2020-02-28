@@ -106,6 +106,8 @@ class _AppState extends State<App> {
         _isAuthenticated = isAuthenticated;
       });
     });
+
+    _model.fetchUserProfile();
   }
 
   @override

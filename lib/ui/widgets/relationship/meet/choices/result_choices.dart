@@ -25,7 +25,9 @@ class _ResultChoiceState extends State<ResultChoice> {
   @override
   void initState() {
     if (widget.model.getAllUsers().isNotEmpty) {
-      _displayName = widget.model.searchedUsers[0].profile.firstName;
+      _displayName = widget.model.searchedUsers.isNotEmpty
+          ? widget.model.searchedUsers[0].profile.firstName
+          : '';
     }
     super.initState();
   }
@@ -151,7 +153,6 @@ class _ResultChoiceState extends State<ResultChoice> {
                         builder: (_) => ProfilePage(
                               user: user,
                             )));
-                
               },
             ),
             RaisedButton.icon(

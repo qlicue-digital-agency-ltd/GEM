@@ -32,8 +32,7 @@ class Filters {
   }
 
   Filters.fromMap(Map<String, dynamic> map)
-      : assert(map[race] != null),
-        assert(map[religion] != null),
+      : 
         race = map['race'],
         religion = map['religion'],
         age = map['age'],
