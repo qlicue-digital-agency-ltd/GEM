@@ -431,18 +431,7 @@ mixin TipsModel on ConnectedGemModel {
 }
 mixin CasesModel on ConnectedGemModel {
   //all Cases
-  List<Case> getCases() {
-    if (_availableCase == null) {
-      return <Case>[];
-    }
-
-    return List<Case>.from(_availableCase);
-  }
-
-  void loadCases() {
-    _availableCase = CaseRepository.loadCases();
-    notifyListeners();
-  }
+  List<Case> get availableCases => List<Case>.from(_availableCase);
 
   void likeCaseToggle({@required caseId}) {
     int index = _availableCase.indexWhere((w) => w.id == caseId);
@@ -481,10 +470,7 @@ mixin TradeModel on ConnectedGemModel {
     return List<Trade>.from(_availableTrade);
   }
 
-  void loadTrades() {
-    _availableTrade = TradeRepository.loadTrade();
-    notifyListeners();
-  }
+
 }
 
 mixin AddsModel on ConnectedGemModel {

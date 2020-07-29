@@ -99,7 +99,7 @@ class _FriendshipScreenState extends State<FriendshipScreen>
                 )),
             Container(
                 child: ListView.builder(
-              itemCount: model.getCases().length,
+              itemCount: model.availableCases.length,
               itemBuilder: (BuildContext context, int index) {
                 return CaseCard(
                   model: model,
@@ -108,13 +108,13 @@ class _FriendshipScreenState extends State<FriendshipScreen>
                         context,
                         MaterialPageRoute(
                             builder: (context) => RelationshipCasesDetailScreen(
-                                  title: model.getCases()[index].subtitle,
-                                  relationCase: model.getCases()[index],
+                                  title: model.availableCases[index].subtitle,
+                                  relationCase: model.availableCases[index],
                                   index: index,
                                   model: model,
                                 )));
                   },
-                  relationCase: model.getCases()[index],
+                  relationCase: model.availableCases[index],
                 );
               },
             )),

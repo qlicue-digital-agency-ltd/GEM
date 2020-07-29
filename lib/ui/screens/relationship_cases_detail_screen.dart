@@ -157,12 +157,12 @@ class _RelationshipCasesDetailScreenState
                         }),
                     ListTile(
                         leading: Icon(
-                          model.getCases()[widget.index].likeStatus
+                          model.availableCases[widget.index].likeStatus
                               ? Icons.favorite
                               : Icons.favorite_border,
                           color: Colors.red,
                         ),
-                        title: Text(model.getCases()[widget.index].likeStatus
+                        title: Text(model.availableCases[widget.index].likeStatus
                             ? 'Dislike'
                             : 'Like'),
                         onTap: () {

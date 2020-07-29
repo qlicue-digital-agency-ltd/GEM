@@ -26,10 +26,6 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
 
-    widget.model.loadCases();
-    widget.model.loadTips();
-    widget.model.loadAdds();
-
     widget.model.loadMenu();
 
     //server calls..
