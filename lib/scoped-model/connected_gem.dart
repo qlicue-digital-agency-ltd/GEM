@@ -335,8 +335,10 @@ mixin UtilityModel on ConnectedGemModel {
         });
       } else {}
     } catch (error) {
+      print('ppppppppppppppppppppppppppppppppppppppp');
       print(error);
     }
+
     _availableDistricts = _fetchedDistricts;
     _selectedDistrict = _availableDistricts[0];
 
@@ -807,33 +809,41 @@ mixin UserModel on ConnectedGemModel {
       @required String skinColor,
       @required String height,
       @required String bio}) async {
-    _isSubmitingUserData = true;
+    _isSubmitingUserData = false;
     bool hasError = false;
 
     notifyListeners();
 
     Dio dio = new Dio();
-    FormData formdata = new FormData();
-    formdata.add("file", new UploadFileInfo(_pickedImage, "image.jpeg"));
-    formdata.add("first_name", firstName);
-    formdata.add("last_name", lastName);
-    formdata.add("sex", sex);
-    formdata.add("birthday", birthday);
-    formdata.add("marital_status", matrialStatus);
-    formdata.add("education_id", educationLevel.id);
-    formdata.add("profession_id", profession.id);
-    formdata.add("education", educationLevel.level);
-    formdata.add("profession", profession.description);
-    formdata.add("pronvice", pronvice.name);
-    formdata.add("nationality", nationality);
-    formdata.add("bio", bio);
-    formdata.add("dominion", dominion);
-    formdata.add("skin_color", skinColor);
-    formdata.add("height", height);
+    dio.options.headers = {
+      'Content-type': 'multipart/form-data',
+      'Accept': 'application/json'
+    };
+
+    FormData formData = new FormData.fromMap({
+      "first_name": firstName,
+      "last_name": lastName,
+      "sex": sex,
+      "birthday": birthday,
+      "marital_status": matrialStatus,
+      "education_id": educationLevel.id,
+      "profession_id": profession.id,
+      "education": educationLevel.level,
+      "profession": profession.description,
+      "pronvice": pronvice.name,
+      "nationality": nationality,
+      "bio": bio,
+      "dominion": dominion,
+      "skin_color": skinColor,
+      "height": height,
+      "file": await MultipartFile.fromFile(_pickedImage.path,
+          filename: "upload.png"),
+    });
+
 
     await dio
         .post(api + "profile/" + _authenticatedUser.id.toString(),
-            data: formdata,
+            data: formData,
             options: Options(
                 method: 'POST',
                 responseType: ResponseType.json // or ResponseType.JSON
@@ -851,7 +861,7 @@ mixin UserModel on ConnectedGemModel {
         _updateProfileStatus();
 
         _userSubject.add(true);
-
+        resetImage();
         notifyListeners();
         //// move to the next page
       } else {
@@ -863,7 +873,6 @@ mixin UserModel on ConnectedGemModel {
     });
 
     _isSubmitingUserData = false;
-    resetImage();
 
     return hasError;
   }
@@ -1005,11 +1014,6 @@ mixin UserModel on ConnectedGemModel {
             _getAge(user.profile.birthday) >= _ageLow &&
             _getAge(user.profile.birthday) <= _ageHigh) &&
         user.profile.sex.toLowerCase() == sex));
-
-print('-------------------------------------');
-    print(_searchedUsers);
-    print(_searchedUsers.length);
-    print('-------------------------------------');
 
     notifyListeners();
   }

@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 class District {
   final int id;
   final String name;
-  final String regionId;
+  final int regionId;
 
   District({
     @required this.id,
@@ -14,5 +14,5 @@ class District {
   District.fromMap(Map<String, dynamic> map)
       : id = map['id'],
         name = map['name'],
-        regionId = map['region_id'];
+        regionId = int.parse(map['region_id'].toString());
 }
