@@ -332,7 +332,6 @@ mixin UtilityModel on ConnectedGemModel {
         });
       } else {}
     } catch (error) {
-      print('ppppppppppppppppppppppppppppppppppppppp');
       print(error);
     }
 
@@ -617,10 +616,12 @@ mixin LoginModel on ConnectedGemModel {}
 
 mixin UserModel on ConnectedGemModel {
   PublishSubject<bool> _userSubject = PublishSubject();
+  bool _hasUserProfile = false;
 
   Country _selectedCountry = Country.TZ;
 
   Country get selectedCountry => _selectedCountry;
+  bool get hasUserProfile => _hasUserProfile;
 
   set setSelectedCountry(Country country) {
     _selectedCountry = country;
@@ -628,42 +629,35 @@ mixin UserModel on ConnectedGemModel {
   }
 //auto authenication
 
-  Future<void> autoAuthenticate() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String token = prefs.getString('token');
-
-    if (token != null) {
-      final int userId = prefs.getInt('id');
-      final String phone = prefs.getString('phone');
-
-      _authenticatedUser = User(
-        id: userId,
-        profile: null,
-        followers: [],
-        followings: [],
-        phone: phone,
-        token: token,
-      );
-
-      _userSubject.add(true);
-    }
+  Future<bool> autoAuthenticate() async {
+    await _sharedPref.readSingleString('token').then((token) {
+      if (token != null) {
+        _sharedPref.read('user').then((value) {
+          _authenticatedUser = User.fromMap(value);
+          if (_authenticatedUser.profile.avatar != null) {
+            _hasUserProfile = true;
+          }
+        });
+        _userSubject.add(true);
+      }
+    });
 
     notifyListeners();
+
+    return true;
   }
 
 //Sign out
   Future<void> signOut() async {
     _userSubject.add(false);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('id');
+    prefs.remove('user');
     prefs.remove('token');
-    prefs.remove('phone');
-    prefs.remove('hasProfile');
     notifyListeners();
   }
 
 //sign in user
-  Future<void> signInUser(
+  Future<bool> signInUser(
       {@required String phone, @required String password}) async {
     notifyListeners();
 
@@ -671,26 +665,31 @@ mixin UserModel on ConnectedGemModel {
       'phone': phone,
       'password': password,
     };
+    bool _hasError = true;
     final http.Response response = await http.post(
       api + "login",
       body: json.encode(authData),
       headers: {'Content-Type': 'application/json'},
     );
     final Map<String, dynamic> responseData = json.decode(response.body);
-
-    _authenticatedUser = User.fromMap(responseData);
-
-    _userSubject.add(true);
-
-    _saveUserDataOnSharedPreference(responseData: responseData);
+    if (responseData.containsKey('token')) {
+      _hasError = false;
+      _authenticatedUser = User.fromMap(responseData['user']);
+      _sharedPref.save('user', responseData['user']);
+      _sharedPref.saveSingleString('token', responseData['token']);
+      _userSubject.add(true);
+    } else {
+      _hasError = true;
+    }
 
     notifyListeners();
+    return _hasError;
   }
 
 //sign in user
   Future<bool> signUpUser(
       {@required String phone, @required String password}) async {
-    bool _isSiginingUp = false;
+    bool _hasError = true;
 
     final Map<String, dynamic> authData = {
       'phone': phone,
@@ -711,31 +710,17 @@ mixin UserModel on ConnectedGemModel {
         _sharedPref.save('user', responseData['user']);
         _sharedPref.saveSingleString('token', responseData['token']);
 
-        _isSiginingUp = true;
+        _hasError = false;
       } else {
-        _isSiginingUp = false;
+        _hasError = true;
       }
     } catch (e) {
       print(e);
-      _isSiginingUp = false;
+      _hasError = true;
     }
 
     notifyListeners();
-    return _isSiginingUp;
-  }
-
-  _saveUserDataOnSharedPreference(
-      {@required Map<String, dynamic> responseData}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    prefs.setInt('id', responseData['id']);
-    prefs.setString('token', responseData['token']);
-    prefs.setString('phone', responseData['phone'].toString());
-    if (responseData['profile'] != null) {
-      prefs.setBool('hasProfile', true);
-    } else {
-      prefs.setBool('hasProfile', false);
-    }
+    return _hasError;
   }
 
   // post  Profile.
