@@ -635,15 +635,15 @@ mixin UserModel on ConnectedGemModel {
     if (token != null) {
       final int userId = prefs.getInt('id');
       final String phone = prefs.getString('phone');
-      final bool hasProfile = prefs.getBool('hasProfile');
+
       _authenticatedUser = User(
-          id: userId,
-          profile: null,
-          followers: [],
-          followings: [],
-          phone: phone,
-          token: token,
-          hasProfile: hasProfile);
+        id: userId,
+        profile: null,
+        followers: [],
+        followings: [],
+        phone: phone,
+        token: token,
+      );
 
       _userSubject.add(true);
     }
@@ -705,11 +705,12 @@ mixin UserModel on ConnectedGemModel {
       );
       final Map<String, dynamic> responseData = json.decode(response.body);
       if (responseData.containsKey('token')) {
-        _authenticatedUser = User.fromMap(responseData);
+        _authenticatedUser = User.fromMap(responseData['user']);
 
         _userSubject.add(true);
+        _sharedPref.save('user', responseData['user']);
+        _sharedPref.saveSingleString('token', responseData['token']);
 
-        _saveUserDataOnSignUpOnSharedPreference(responseData: responseData);
         _isSiginingUp = true;
       } else {
         _isSiginingUp = false;
@@ -735,16 +736,6 @@ mixin UserModel on ConnectedGemModel {
     } else {
       prefs.setBool('hasProfile', false);
     }
-  }
-
-  _saveUserDataOnSignUpOnSharedPreference(
-      {@required Map<String, dynamic> responseData}) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    prefs.setInt('id', responseData['id']);
-    prefs.setString('token', responseData['token']);
-    prefs.setString('phone', responseData['phone'].toString());
-    prefs.setBool('hasProfile', false);
   }
 
   // post  Profile.
@@ -808,7 +799,6 @@ mixin UserModel on ConnectedGemModel {
 
         print(data['profile']);
         _authenticatedUser.profile = Profile.fromMap(data['profile']);
-        _authenticatedUser.hasProfile = true;
 
         _updateProfileStatus();
 
@@ -839,7 +829,6 @@ mixin UserModel on ConnectedGemModel {
 
       if (response.statusCode == 200) {
         _authenticatedUser.profile = Profile.fromMap(data['profile']);
-        _authenticatedUser.hasProfile = true;
       } else {}
     } catch (error) {
       print(error);

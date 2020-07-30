@@ -122,7 +122,7 @@ class _AppState extends State<App> {
         ),
         routes: {
           homeScreen: (BuildContext context) => _isAuthenticated
-              ? (_model.authenticatedUser.hasProfile
+              ? (_model.authenticatedUser.id != 0
                   ? HomePage(
                       model: _model,
                     )
