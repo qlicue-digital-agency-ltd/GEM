@@ -271,8 +271,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                                   disabledColor: Colors.cyan[200],
                                   color: Color(0xFF00d0cb),
                                   onPressed: () {
-                                    print(model.authenticatedUser);
-
+                                
                                     if (_formKey.currentState.validate()) {
                                       if (model.pickedImage != null &&
                                           _birthday != null) {

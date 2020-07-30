@@ -3,24 +3,22 @@ import 'package:flutter/material.dart';
 class Profile {
   final int id;
   final int userId;
-  final int educationId;
-  final int professionId;
-  final String height;
-
-  final String firstName;
-  final String lastName;
-  final String avatar;
-  final String sex;
-  final String birthday;
-  final String maritalStatus;
-  final String nationality;
-  final String pronvice;
-  final String dominion;
-  final String skinColor;
-
-  final String education;
-  final String profession;
-  final String bio;
+  int educationId;
+  int professionId;
+  String height;
+  String firstName;
+  String lastName;
+  String avatar;
+  String sex;
+  String birthday;
+  String maritalStatus;
+  String nationality;
+  String pronvice;
+  String dominion;
+  String skinColor;
+  String education;
+  String profession;
+  String bio;
 
   Profile(
       {@required this.id,
@@ -58,8 +56,12 @@ class Profile {
         dominion = map['dominion'],
         skinColor = map['skin_color'],
         height = map['height'],
-        professionId = int.parse(map['profession_id'].toString()),
-        educationId = int.parse(map['education_id'].toString()),
+        professionId = map['profession_id'] != null
+            ? int.parse(map['profession_id'].toString())
+            : null,
+        educationId = map['education_id'] != null
+            ? int.parse(map['education_id'].toString())
+            : null,
         education = map['education'],
         profession = map['profession'],
         bio = map['bio'];

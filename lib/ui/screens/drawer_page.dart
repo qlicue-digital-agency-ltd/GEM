@@ -241,12 +241,12 @@ class _DrawerPageState extends State<DrawerPage> {
             child: Column(
               children: <Widget>[
                 UserAccountsDrawerHeader(
-                    accountName:
-                        new Text('model.authenticatedUser.profile.firstName'),
+                    accountName: new Text(
+                        model.authenticatedUser.profile.firstName.toString()),
                     currentAccountPicture: CircleAvatar(
                         backgroundImage: NetworkImage(
-                            'model.authenticatedUser.profile.avatar')),
-                    accountEmail: Text('+'+model.authenticatedUser.phone)),
+                            model.authenticatedUser.profile.avatar)),
+                    accountEmail: Text('+' + model.authenticatedUser.phone)),
                 ListTile(
                   leading: Icon(
                     FontAwesomeIcons.home,
@@ -401,6 +401,9 @@ class _DrawerPageState extends State<DrawerPage> {
                   ),
                   onTap: () {
                     Navigator.pop(context);
+                    model.signOut().then((value) {
+                      Navigator.of(context).pushReplacementNamed(loginScreen);
+                    });
                   },
                 ),
                 SizedBox(height: 20)

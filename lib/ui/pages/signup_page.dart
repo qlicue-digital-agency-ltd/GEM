@@ -168,8 +168,8 @@ class _SignupPageState extends State<SignupPage> {
                                             password:
                                                 _passwordTextEditingController
                                                     .text)
-                                        .then((onValue) {
-                                      if (onValue) {
+                                        .then((val) {
+                                      if (!val) {
                                         Navigator.of(context)
                                             .pushReplacementNamed(
                                                 registerFormScreen);

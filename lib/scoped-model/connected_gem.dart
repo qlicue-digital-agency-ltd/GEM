@@ -15,8 +15,6 @@ import 'package:gem/models/education.dart';
 import 'package:gem/models/filters.dart';
 import 'package:gem/models/job.dart';
 import 'package:gem/models/profession.dart';
-import 'package:gem/models/profile.dart';
-
 import 'package:gem/models/repos/comments_repository.dart';
 import 'package:gem/models/repos/job_repository.dart';
 import 'package:gem/models/repos/menu_repository.dart';
@@ -703,9 +701,10 @@ mixin UserModel on ConnectedGemModel {
         headers: {'Content-Type': 'application/json'},
       );
       final Map<String, dynamic> responseData = json.decode(response.body);
+
       if (responseData.containsKey('token')) {
         _authenticatedUser = User.fromMap(responseData['user']);
-
+        print(User.fromMap(responseData['user']));
         _userSubject.add(true);
         _sharedPref.save('user', responseData['user']);
         _sharedPref.saveSingleString('token', responseData['token']);
@@ -719,6 +718,7 @@ mixin UserModel on ConnectedGemModel {
       _hasError = true;
     }
 
+    print(_authenticatedUser);
     notifyListeners();
     return _hasError;
   }
@@ -784,8 +784,9 @@ mixin UserModel on ConnectedGemModel {
 
         _authenticatedUser = User.fromMap(data['user']);
 
+    
         _sharedPref.save('user', data['user']);
-        _updateProfileStatus();
+        _hasUserProfile = true;
 
         _userSubject.add(true);
         resetImage();
@@ -825,12 +826,6 @@ mixin UserModel on ConnectedGemModel {
         List.from(_fetchedUsers.where((user) => user.profile != null));
 
     notifyListeners();
-  }
-
-//
-  void _updateProfileStatus() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('hasProfile', true);
   }
 
 //public methods
