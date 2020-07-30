@@ -724,7 +724,7 @@ mixin UserModel on ConnectedGemModel {
   }
 
   // post  Profile.
-  Future<bool> postPofile(
+  Future<bool> updateProfile(
       {@required String firstName,
       @required String lastName,
       @required String sex,
@@ -770,7 +770,7 @@ mixin UserModel on ConnectedGemModel {
     });
 
     await dio
-        .post(api + "profile/" + _authenticatedUser.id.toString(),
+        .post(api + "editProfile/" + _authenticatedUser.profile.id.toString(),
             data: formData,
             options: Options(
                 method: 'POST',
@@ -779,18 +779,16 @@ mixin UserModel on ConnectedGemModel {
         .then((response) {
       final Map<String, dynamic> data = response.data;
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         hasError = false;
 
-        print(data['profile']);
-        _authenticatedUser.profile = Profile.fromMap(data['profile']);
+        _authenticatedUser = User.fromMap(data['user']);
 
+        _sharedPref.save('user', data['user']);
         _updateProfileStatus();
 
         _userSubject.add(true);
         resetImage();
-        notifyListeners();
-        //// move to the next page
       } else {
         hasError = true;
       }
@@ -800,26 +798,9 @@ mixin UserModel on ConnectedGemModel {
     });
 
     _isSubmitingUserData = false;
+    notifyListeners();
 
     return hasError;
-  }
-
-  // fetch all users...
-  Future<void> fetchUserProfile() async {
-    try {
-      final http.Response response = await http
-          .get(api + "userProfile/" + _authenticatedUser.id.toString());
-
-      final Map<String, dynamic> data = json.decode(response.body);
-
-      if (response.statusCode == 200) {
-        _authenticatedUser.profile = Profile.fromMap(data['profile']);
-      } else {}
-    } catch (error) {
-      print(error);
-    }
-
-    notifyListeners();
   }
 
   // fetch all users...

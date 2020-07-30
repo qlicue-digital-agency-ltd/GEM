@@ -280,7 +280,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                                                 date: _birthday.toString()) >=
                                             16) {
                                           model
-                                              .postPofile(
+                                              .updateProfile(
                                                   birthday:
                                                       _birthday.toString(),
                                                   educationLevel: model

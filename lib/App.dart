@@ -99,7 +99,6 @@ class _AppState extends State<App> {
     _model.fetchDistricts();
     super.initState();
     _model.autoAuthenticate().then((onValue) {
-      _model.fetchUserProfile();
     });
     _model.userSubject.listen((bool isAuthenticated) {
       setState(() {
@@ -107,7 +106,7 @@ class _AppState extends State<App> {
       });
     });
 
-    _model.fetchUserProfile();
+ 
   }
 
   @override
@@ -122,7 +121,7 @@ class _AppState extends State<App> {
         ),
         routes: {
           homeScreen: (BuildContext context) => _isAuthenticated
-              ? (_model.authenticatedUser.id != 0
+              ? (_model.hasUserProfile 
                   ? HomePage(
                       model: _model,
                     )
