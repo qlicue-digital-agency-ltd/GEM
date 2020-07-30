@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gem/scoped-model/main.dart';
 import 'package:gem/ui/screens/relation/cases_screen.dart';
+import 'package:gem/ui/screens/relation/tips_screen.dart';
 import 'package:gem/ui/screens/relation_tips_detail_screen.dart';
 
 import 'package:gem/ui/widgets/relationship/meet/choices/choose_friends.dart';
@@ -98,27 +99,9 @@ class _FriendshipScreenState extends State<FriendshipScreen>
             CasesScreen(
               model: model,
             ),
-            Container(
-                child: ListView.builder(
-              itemCount: model.availableTips.length,
-              itemBuilder: (BuildContext context, int index) {
-                return TipsCard(
-                  model: model,
-                  tip: model.availableTips[index],
-                  onCardTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RelationshipTipsDetailScreen(
-                                  title: model.availableTips[index].subtitle,
-                                  relationTip: model.availableTips[index],
-                                  model: model,
-                                  index: index,
-                                )));
-                  },
-                );
-              },
-            )),
+            TipsScreen(
+              model: model,
+            )
           ],
         );
       },

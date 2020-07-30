@@ -27,10 +27,6 @@ class _HomePageState extends State<HomePage>
     super.initState();
 
     widget.model.loadMenu();
-
-    //server calls..
-    widget.model.fetchTips();
-
     widget.model.fetchAllUsers();
     _tabController = new TabController(
       length: 3,
