@@ -16,13 +16,10 @@ import 'package:gem/models/filters.dart';
 import 'package:gem/models/job.dart';
 import 'package:gem/models/profession.dart';
 import 'package:gem/models/profile.dart';
-import 'package:gem/models/repos/adds_repository.dart';
-import 'package:gem/models/repos/case_repository.dart';
+
 import 'package:gem/models/repos/comments_repository.dart';
 import 'package:gem/models/repos/job_repository.dart';
 import 'package:gem/models/repos/menu_repository.dart';
-import 'package:gem/models/repos/tip_repository.dart';
-import 'package:gem/models/repos/trade_repository.dart';
 import 'package:gem/models/tip.dart';
 import 'package:gem/models/trade.dart';
 import 'package:gem/models/user.dart';
@@ -34,6 +31,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 mixin ConnectedGemModel on Model {
   /// Shared preference DB
@@ -392,10 +390,6 @@ mixin TipsModel on ConnectedGemModel {
     return List<Tip>.from(_availableTips);
   }
 
-  void loadTips() {
-    _availableTips = TipsRepository.loadTips();
-    notifyListeners();
-  }
 
   void likeTipToggle({@required tipId}) {
     int index = _availableTips.indexWhere((w) => w.id == tipId);
@@ -459,6 +453,23 @@ mixin CasesModel on ConnectedGemModel {
     _availableCase[index] = updatedCase;
     notifyListeners();
   }
+
+    //fetch tips..
+  Future<void> fetchCases() async {
+    final List<Case> _fetchCases = [];
+    try {
+      final http.Response response = await http.get(api + 'stories');
+      final Map<String, dynamic> data = json.decode(response.body);
+      data['data'].forEach((_tipsData) {
+        final _tip = Case.fromMap(_tipsData);
+        _fetchCases.add(_tip);
+      });
+    } catch (error) {
+      print(error);
+    }
+  }
+
+
 }
 mixin TradeModel on ConnectedGemModel {
   //all trades
@@ -483,10 +494,7 @@ mixin AddsModel on ConnectedGemModel {
     return List<Adds>.from(_availableAdds);
   }
 
-  void loadAdds() {
-    _availableAdds = AddsRepository.loadAdds();
-    notifyListeners();
-  }
+
 }
 
 mixin JobsModel on ConnectedGemModel {
