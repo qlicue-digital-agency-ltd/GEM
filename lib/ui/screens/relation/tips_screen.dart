@@ -16,7 +16,7 @@ class _TipsScreenState extends State<TipsScreen> {
   @override
   void initState() {
     super.initState();
-    widget.model.fetchTips();
+   widget.model.fetchTips();
   }
 
   @override

@@ -43,11 +43,14 @@ class TipsCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(tip.title,
-                          style: TextStyle(
-                            fontFamily: 'itikaf',
-                            fontSize: 20.0,
-                          ))
+                      Expanded(
+                        child: Text(tip.title,
+                        maxLines: 1,
+                            style: TextStyle(
+                              fontFamily: 'itikaf',
+                              fontSize: 20.0,
+                            )),
+                      )
                     ],
                   ),
                 ),
@@ -59,11 +62,13 @@ class TipsCard extends StatelessWidget {
                         children: <Widget>[
                           ListTile(
                             title: Text(tip.title,
+                            maxLines: 2,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 20.0,
                                 )),
-                            subtitle: Text(tip.paragraphs[0].body,
+
+                            subtitle: Text('\n'+tip.paragraphs[0].body,
                                 maxLines: 4,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
