@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 import 'package:gem/models/tip.dart';
 import 'package:gem/scoped-model/main.dart';
-import 'package:gem/ui/widgets/adverts/image_advert.dart';
 import 'package:gem/util/util.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -106,9 +105,9 @@ class _RelationshipTipsDetailScreenState
                           fontSize: 20.0,
                         )),
                   ),
-                  ImageAdvert(
-                    advert: model.getAdds()[widget.relationTip.adds[0]],
-                  ),
+                  // ImageAdvert(
+                  //   advert: model.getAdds()[widget.relationTip.adds[0]],
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                     child: Text(widget.relationTip.paragraphs[1],
@@ -117,9 +116,9 @@ class _RelationshipTipsDetailScreenState
                           fontSize: 20.0,
                         )),
                   ),
-                  ImageAdvert(
-                    advert: model.getAdds()[widget.relationTip.adds[1]],
-                  ),
+                  // ImageAdvert(
+                  //   advert: model.getAdds()[widget.relationTip.adds[1]],
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                     child: Text(widget.relationTip.paragraphs[2],
@@ -159,12 +158,12 @@ class _RelationshipTipsDetailScreenState
                         }),
                     ListTile(
                         leading: Icon(
-                          model.getTips()[widget.index].likeStatus
+                          model.availableTips[widget.index].likeStatus
                               ? Icons.favorite
                               : Icons.favorite_border,
                           color: Colors.red,
                         ),
-                        title: Text(model.getTips()[widget.index].likeStatus
+                        title: Text(model.availableTips[widget.index].likeStatus
                             ? 'Dislike'
                             : 'Like'),
                         onTap: () {

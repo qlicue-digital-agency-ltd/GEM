@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gem/models/adds.dart';
+
+import 'package:gem/models/advert.dart';
 import 'package:gem/style/style.dart' as ThemeColor;
 
 class ImageAdvert extends StatelessWidget {
-  final Adds advert;
+  final Advert advert;
 
   const ImageAdvert({Key key, @required this.advert}) : super(key: key);
   @override

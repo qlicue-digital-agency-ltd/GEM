@@ -64,7 +64,7 @@ class CaseCard extends StatelessWidget {
                                   fontFamily: 'itikaf',
                                   fontSize: 20.0,
                                 )),
-                            subtitle: Text(relationCase.body,
+                            subtitle: Text(relationCase.title,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 18.0,
@@ -84,8 +84,7 @@ class CaseCard extends StatelessWidget {
                               padding: EdgeInsets.only(left: 10, right: 10),
                               child: Container(
                                 child: ImageHolder(
-                                  image:
-                                      'https://flutter.io/images/catalog-widget-placeholder.png',
+                                  image: relationCase.image,
                                 ),
                                 height: 100,
                                 width: 100,
@@ -126,9 +125,7 @@ class CaseCard extends StatelessWidget {
                                         caseId: relationCase.id);
                                   },
                                   child: Icon(
-                                    relationCase.likeStatus
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
+                                    Icons.favorite_border,
                                     color: Colors.red,
                                   ),
                                 ),
@@ -171,10 +168,7 @@ class CaseCard extends StatelessWidget {
                       onTap: () {
                         print('object');
                       },
-                      child: Text(
-                          'Liked by ' +
-                              relationCase.likes.toString() +
-                              ' people',
+                      child: Text('Liked by 10 ' + ' people',
                           style: TextStyle(color: Colors.black45)),
                     )),
               ],

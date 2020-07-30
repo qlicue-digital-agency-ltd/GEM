@@ -120,18 +120,18 @@ class _FriendshipScreenState extends State<FriendshipScreen>
             )),
             Container(
                 child: ListView.builder(
-              itemCount: model.getTips().length,
+              itemCount: model.availableTips.length,
               itemBuilder: (BuildContext context, int index) {
                 return TipsCard(
                   model: model,
-                  tip: model.getTips()[index],
+                  tip: model.availableTips[index],
                   onCardTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => RelationshipTipsDetailScreen(
-                                  title: model.getTips()[index].subtitle,
-                                  relationTip: model.getTips()[index],
+                                  title: model.availableTips[index].subtitle,
+                                  relationTip: model.availableTips[index],
                                   model: model,
                                   index: index,
                                 )));

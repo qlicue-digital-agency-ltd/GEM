@@ -92,43 +92,29 @@ class _RelationshipCasesDetailScreenState
                       value: SystemUiOverlayStyle.dark,
                       child: Padding(
                           padding: EdgeInsets.all(20),
-                          child: Text('BY: ' + widget.relationCase.author,
+                          child: Text('BY: ',
                               style: TextStyle(
                                 fontFamily: 'trajanProRegular',
                                 fontSize: 15.0,
                               )))),
+                ]),
+              ),
+              SliverList(delegate:
+                  SliverChildBuilderDelegate((BuildContext context, int index) {
+                return Column(children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 5),
-                    child: Text(widget.relationCase.paragraphs[0],
+                    child: Text(widget.relationCase.paragraphs[index].body,
                         style: TextStyle(
                           fontFamily: 'itikaf',
                           fontSize: 20.0,
                         )),
                   ),
                   ImageAdvert(
-                    advert: model.getAdds()[widget.relationCase.adds[0]],
+                    advert: widget.relationCase.paragraphs[index].advert,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: Text(widget.relationCase.paragraphs[1],
-                        style: TextStyle(
-                          fontFamily: 'itikaf',
-                          fontSize: 20.0,
-                        )),
-                  ),
-                  ImageAdvert(
-                    advert: model.getAdds()[widget.relationCase.adds[1]],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: Text(widget.relationCase.paragraphs[2],
-                        style: TextStyle(
-                          fontFamily: 'itikaf',
-                          fontSize: 20.0,
-                        )),
-                  ),
-                ]),
-              )
+                ]);
+              }))
             ],
           ),
         );
@@ -153,18 +139,14 @@ class _RelationshipCasesDetailScreenState
                         title: Text('Share'),
                         onTap: () {
                           Share.share(
-                              'check out my website https://qlicue.co.tz.com');
+                              'check out my website https://qlicue.co.tz');
                         }),
                     ListTile(
                         leading: Icon(
-                          model.availableCases[widget.index].likeStatus
-                              ? Icons.favorite
-                              : Icons.favorite_border,
+                          Icons.favorite_border,
                           color: Colors.red,
                         ),
-                        title: Text(model.availableCases[widget.index].likeStatus
-                            ? 'Dislike'
-                            : 'Like'),
+                        title: Text('Like'),
                         onTap: () {
                           widget.model
                               .likeCaseToggle(caseId: widget.relationCase.id);

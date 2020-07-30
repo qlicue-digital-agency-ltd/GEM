@@ -32,7 +32,6 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 mixin ConnectedGemModel on Model {
   /// Shared preference DB
   SharedPref _sharedPref = SharedPref();
@@ -47,20 +46,20 @@ mixin ConnectedGemModel on Model {
   bool _onBoardingCompleted = false;
   int _indexTopTab = 0;
 
-  List<Trade> _availableTrade;
-  List<Case> _availableCase;
-  List<Tip> _availableTips;
+  List<Trade> _availableTrade = [];
+  List<Case> _availableCase = [];
+  List<Tip> _availableTips = [];
   List<Adds> _availableAdds;
-  List<Job> _availableJobs;
-  List<Cats> _availableCategory;
-  List<User> _availableUsers;
-  List<User> _searchedUsers;
+  List<Job> _availableJobs = [];
+  List<Cats> _availableCategory = [];
+  List<User> _availableUsers = [];
+  List<User> _searchedUsers = [];
 
-  List<Menu> _availableMenu;
-  List<Comment> _availableComments;
-  List<Education> _availableEducationLevels;
-  List<District> _availableDistricts;
-  List<Profession> _availableProfessionLevels;
+  List<Menu> _availableMenu = [];
+  List<Comment> _availableComments = [];
+  List<Education> _availableEducationLevels = [];
+  List<District> _availableDistricts = [];
+  List<Profession> _availableProfessionLevels = [];
 
   bool _isSubmitingUserData = false;
 
@@ -382,29 +381,11 @@ mixin UtilityModel on ConnectedGemModel {
 
 mixin TipsModel on ConnectedGemModel {
   //all tips
-  List<Tip> getTips() {
-    if (_availableTips == null) {
-      return <Tip>[];
-    }
-
-    return List<Tip>.from(_availableTips);
-  }
-
+  List<Tip> get availableTips => List<Tip>.from(_availableTips);
 
   void likeTipToggle({@required tipId}) {
-    int index = _availableTips.indexWhere((w) => w.id == tipId);
-    final updatedTip = Tip(
-      id: _availableTips[index].id,
-      image: _availableTips[index].image,
-      subtitle: _availableTips[index].subtitle,
-      time: _availableTips[index].time,
-      title: _availableTips[index].title,
-      adds: _availableTips[index].adds,
-      author: _availableTips[index].author,
-      paragraphs: _availableTips[index].paragraphs,
-      likeStatus: !_availableTips[index].likeStatus,
-    );
-    _availableTips[index] = updatedTip;
+    //int index = _availableTips.indexWhere((w) => w.id == tipId);
+
     notifyListeners();
   }
 
@@ -428,48 +409,28 @@ mixin CasesModel on ConnectedGemModel {
   List<Case> get availableCases => List<Case>.from(_availableCase);
 
   void likeCaseToggle({@required caseId}) {
-    int index = _availableCase.indexWhere((w) => w.id == caseId);
+    //  int index = _availableCase.indexWhere((w) => w.id == caseId);
 
-    int likeCount = _availableCase[index].likes;
-
-    if (_availableCase[index].likeStatus) {
-      likeCount--;
-    } else {
-      likeCount++;
-    }
-    final updatedCase = Case(
-      id: _availableCase[index].id,
-      image: _availableCase[index].image,
-      body: _availableCase[index].body,
-      subtitle: _availableCase[index].subtitle,
-      time: _availableCase[index].time,
-      title: _availableCase[index].title,
-      adds: _availableCase[index].adds,
-      author: _availableCase[index].author,
-      paragraphs: _availableCase[index].paragraphs,
-      likeStatus: !_availableCase[index].likeStatus,
-      likes: likeCount,
-    );
-    _availableCase[index] = updatedCase;
     notifyListeners();
   }
 
-    //fetch tips..
+  //fetch tips..
   Future<void> fetchCases() async {
     final List<Case> _fetchCases = [];
     try {
       final http.Response response = await http.get(api + 'stories');
       final Map<String, dynamic> data = json.decode(response.body);
-      data['data'].forEach((_tipsData) {
-        final _tip = Case.fromMap(_tipsData);
+      data['data'].forEach((_caseData) {
+        final _tip = Case.fromMap(_caseData);
         _fetchCases.add(_tip);
       });
+      _availableCase = _fetchCases;
     } catch (error) {
       print(error);
     }
+
+    notifyListeners();
   }
-
-
 }
 mixin TradeModel on ConnectedGemModel {
   //all trades
@@ -480,8 +441,6 @@ mixin TradeModel on ConnectedGemModel {
 
     return List<Trade>.from(_availableTrade);
   }
-
-
 }
 
 mixin AddsModel on ConnectedGemModel {
@@ -493,8 +452,6 @@ mixin AddsModel on ConnectedGemModel {
 
     return List<Adds>.from(_availableAdds);
   }
-
-
 }
 
 mixin JobsModel on ConnectedGemModel {
@@ -833,7 +790,6 @@ mixin UserModel on ConnectedGemModel {
       "file": await MultipartFile.fromFile(_pickedImage.path,
           filename: "upload.png"),
     });
-
 
     await dio
         .post(api + "profile/" + _authenticatedUser.id.toString(),
