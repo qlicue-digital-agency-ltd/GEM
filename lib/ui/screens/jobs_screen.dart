@@ -15,7 +15,7 @@ class JobsScreen extends StatelessWidget {
       builder: (BuildContext context, Widget child, MainModel model) {
         return model.getJobs().isEmpty
             ? NoItemTile(
-                icon: Icons.access_time,
+                icon: 'assets/icons/employee.png',
                 subtitle: 'No jobs to show',
                 title: 'Jobs',
               )

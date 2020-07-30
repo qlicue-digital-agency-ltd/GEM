@@ -39,7 +39,7 @@ class _ResultChoiceState extends State<ResultChoice> {
           child: model.searchedUsers.isEmpty
               ? Center(
                   child: NoItemTile(
-                    icon: Icons.supervised_user_circle,
+                    icon: 'assets/icons/wedding.png',
                     subtitle: 'There are no friends yet',
                     title: 'Friends',
                   ),

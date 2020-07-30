@@ -404,9 +404,10 @@ mixin TipsModel on ConnectedGemModel {
   }
 }
 mixin CasesModel on ConnectedGemModel {
+  bool _isFetchingCases;
   //all Cases
   List<Case> get availableCases => List<Case>.from(_availableCase);
-
+bool get isFetchingCases => _isFetchingCases;
   void likeCaseToggle({@required caseId}) {
     //  int index = _availableCase.indexWhere((w) => w.id == caseId);
 
@@ -415,6 +416,7 @@ mixin CasesModel on ConnectedGemModel {
 
   //fetch cases..
   Future<void> fetchCases() async {
+    _isFetchingCases = true;
     final List<Case> _fetchCases = [];
     try {
       final http.Response response = await http.get(api + 'stories');
@@ -427,7 +429,7 @@ mixin CasesModel on ConnectedGemModel {
     } catch (error) {
       print(error);
     }
-
+_isFetchingCases = false;
     notifyListeners();
   }
 }

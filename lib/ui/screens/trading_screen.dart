@@ -23,7 +23,7 @@ class _TradingScreenState extends State<TradingScreen> {
     final Orientation orientation = MediaQuery.of(context).orientation;
     return widget.model.getTrades().isEmpty
         ? NoItemTile(
-            icon: Icons.shopping_cart,
+            icon: 'assets/icons/shopping-bag.png',
             subtitle: 'No Items to trade',
             title: 'Trade',
           )
