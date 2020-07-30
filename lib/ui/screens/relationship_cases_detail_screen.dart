@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:gem/models/case.dart';
 import 'package:gem/scoped-model/main.dart';
 import 'package:gem/ui/widgets/adverts/image_advert.dart';
-import 'package:gem/ui/widgets/image/image_holder.dart';
 import 'package:gem/util/util.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -57,6 +56,8 @@ class _RelationshipCasesDetailScreenState
                 ],
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(widget.title,
+                      maxLines: 1,
+                      
                       style: TextStyle(
                         fontFamily: 'trajanProRegular',
                         fontSize: 18.0,
@@ -64,9 +65,8 @@ class _RelationshipCasesDetailScreenState
                   background: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      ImageHolder(
-                        image: widget.relationCase.image,
-                      ),
+                      Image.network(widget.relationCase.image,
+                          fit: BoxFit.cover, height: _appBarHeight),
                       DecoratedBox(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -113,8 +113,6 @@ class _RelationshipCasesDetailScreenState
                   ),
                 ]);
               }, childCount: widget.relationCase.paragraphs.length))
-            
-            
             ],
           ),
         );

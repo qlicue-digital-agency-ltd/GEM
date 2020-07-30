@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gem/models/case.dart';
 import 'package:gem/scoped-model/main.dart';
-import 'package:gem/ui/widgets/image/image_holder.dart';
 
 import 'package:share/share.dart';
 import 'package:gem/style/style.dart' as ThemeColor;
@@ -46,7 +45,7 @@ class CaseCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(relationCase.title,
-                        maxLines: 1,
+                            maxLines: 1,
                             style: TextStyle(
                               fontFamily: 'itikaf',
                               fontSize: 20.0,
@@ -63,17 +62,18 @@ class CaseCard extends StatelessWidget {
                         children: <Widget>[
                           ListTile(
                             title: Text(relationCase.title,
-                            maxLines: 2,
+                                maxLines: 2,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 20.0,
                                 )),
-                            subtitle: Text('\n'+relationCase.paragraphs[0].body,
-                            maxLines: 4,
-                                style: TextStyle(
-                                  fontFamily: 'itikaf',
-                                  fontSize: 18.0,
-                                )),
+                            subtitle:
+                                Text('\n' + relationCase.paragraphs[0].body,
+                                    maxLines: 4,
+                                    style: TextStyle(
+                                      fontFamily: 'itikaf',
+                                      fontSize: 18.0,
+                                    )),
                           ),
                           SizedBox(
                             height: 60,
@@ -88,9 +88,7 @@ class CaseCard extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(left: 10, right: 10),
                               child: Container(
-                                child: ImageHolder(
-                                  image: relationCase.image,
-                                ),
+                                child: Image.network(relationCase.image),
                                 height: 100,
                                 width: 100,
                               )),

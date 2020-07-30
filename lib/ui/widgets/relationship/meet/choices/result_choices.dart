@@ -3,7 +3,6 @@ import 'package:gem/api/api.dart';
 import 'package:gem/scoped-model/main.dart';
 import 'package:gem/ui/pages/profile_page.dart';
 import 'package:gem/ui/pages/search_friends.dart';
-import 'package:gem/ui/widgets/image/image_holder.dart';
 import 'package:gem/ui/widgets/tiles/no_items.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:gem/style/style.dart' as ThemeColor;
@@ -68,8 +67,8 @@ class _ResultChoiceState extends State<ResultChoice> {
                             child: InkWell(
                                 onTap: () => _showConfirmDialog(
                                     context, model.searchedUsers[index]),
-                                child: ImageHolder(
-                                  image: api +
+                                child: Image.network(
+                                  api +
                                       'profile/' +
                                       model.searchedUsers[index].profile.id
                                           .toString(),

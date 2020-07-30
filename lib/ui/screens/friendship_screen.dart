@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gem/scoped-model/main.dart';
 import 'package:gem/ui/screens/relation/cases_screen.dart';
 import 'package:gem/ui/screens/relation/tips_screen.dart';
-import 'package:gem/ui/screens/relation_tips_detail_screen.dart';
+
 
 import 'package:gem/ui/widgets/relationship/meet/choices/choose_friends.dart';
 import 'package:gem/ui/widgets/relationship/meet/choices/result_choices.dart';
 
-import 'package:gem/ui/widgets/relationship/tips/tips_card.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class FriendshipScreen extends StatefulWidget {

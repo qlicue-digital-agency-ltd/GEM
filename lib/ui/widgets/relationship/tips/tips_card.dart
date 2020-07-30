@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gem/models/tip.dart';
 import 'package:gem/scoped-model/main.dart';
-import 'package:gem/ui/widgets/image/image_holder.dart';
 import 'package:share/share.dart';
 
 import 'package:gem/style/style.dart' as ThemeColor;
@@ -45,7 +44,7 @@ class TipsCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: Text(tip.title,
-                        maxLines: 1,
+                            maxLines: 1,
                             style: TextStyle(
                               fontFamily: 'itikaf',
                               fontSize: 20.0,
@@ -62,13 +61,12 @@ class TipsCard extends StatelessWidget {
                         children: <Widget>[
                           ListTile(
                             title: Text(tip.title,
-                            maxLines: 2,
+                                maxLines: 2,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 20.0,
                                 )),
-
-                            subtitle: Text('\n'+tip.paragraphs[0].body,
+                            subtitle: Text('\n' + tip.paragraphs[0].body,
                                 maxLines: 4,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
@@ -88,8 +86,8 @@ class TipsCard extends StatelessWidget {
                           Padding(
                               padding: EdgeInsets.only(left: 10, right: 10),
                               child: Container(
-                                child: ImageHolder(
-                                  image: tip.image,
+                                child: Image.network(
+                                  tip.image,
                                 ),
                                 height: 100,
                                 width: 100,

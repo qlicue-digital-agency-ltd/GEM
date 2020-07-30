@@ -66,7 +66,7 @@ class _RelationshipTipsDetailScreenState
                   background: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
-                      Image.asset(
+                      Image.network(
                         widget.relationTip.image,
                         fit: BoxFit.cover,
                         height: _appBarHeight,
