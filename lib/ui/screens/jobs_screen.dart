@@ -14,11 +14,13 @@ class JobsScreen extends StatelessWidget {
     return ScopedModelDescendant(
       builder: (BuildContext context, Widget child, MainModel model) {
         return model.getJobs().isEmpty
-            ? NoItemTile(
-                icon: 'assets/icons/employee.png',
-                subtitle: 'No jobs to show',
-                title: 'Jobs',
-              )
+            ? Center(
+              child: NoItemTile(
+                  icon: 'assets/icons/employee.png',
+                  subtitle: 'No jobs to show',
+                  title: 'Jobs',
+                ),
+            )
             : ListView.builder(
                 itemCount: model.getJobs().length,
                 itemBuilder: (BuildContext context, int index) {

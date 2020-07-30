@@ -22,11 +22,13 @@ class _TradingScreenState extends State<TradingScreen> {
   Widget build(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
     return widget.model.getTrades().isEmpty
-        ? NoItemTile(
-            icon: 'assets/icons/shopping-bag.png',
-            subtitle: 'No Items to trade',
-            title: 'Trade',
-          )
+        ? Center(
+          child: NoItemTile(
+              icon: 'assets/icons/shopping-bag.png',
+              subtitle: 'No Items to trade',
+              title: 'Trade',
+            ),
+        )
         : GridView.builder(
             padding: EdgeInsets.all(5),
             itemCount: widget.model.getTrades().length,

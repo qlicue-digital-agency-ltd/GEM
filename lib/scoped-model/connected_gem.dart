@@ -675,11 +675,13 @@ mixin UserModel on ConnectedGemModel {
       headers: {'Content-Type': 'application/json'},
     );
     final Map<String, dynamic> responseData = json.decode(response.body);
+    print(responseData);
     if (responseData.containsKey('token')) {
       _hasError = false;
       _authenticatedUser = User.fromMap(responseData['user']);
       _sharedPref.save('user', responseData['user']);
       _sharedPref.saveSingleString('token', responseData['token']);
+      _hasUserProfile = true;
       _userSubject.add(true);
     } else {
       _hasError = true;
