@@ -26,7 +26,7 @@ class _TipsScreenState extends State<TipsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.model.isFetchingCases
+    return widget.model.isFetchingTips
         ? Center(child: CircularProgressIndicator())
         : widget.model.availableTips.isEmpty
             ? Center(
@@ -35,29 +35,32 @@ class _TipsScreenState extends State<TipsScreen> {
                     title: 'No Posts',
                     subtitle: 'We have no Tips of yet'),
               )
-            : Container(
-                child: ListView.builder(
-                itemCount: widget.model.availableTips.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return TipsCard(
-                    model: widget.model,
-                    tip: widget.model.availableTips[index],
-                    onCardTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  RelationshipTipsDetailScreen(
-                                    title: widget
-                                        .model.availableTips[index].subtitle,
-                                    relationTip:
-                                        widget.model.availableTips[index],
-                                    model: widget.model,
-                                    index: index,
-                                  )));
-                    },
-                  );
-                },
-              ));
+            : RefreshIndicator(
+                onRefresh: _getData,
+                child: Container(
+                    child: ListView.builder(
+                  itemCount: widget.model.availableTips.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return TipsCard(
+                      model: widget.model,
+                      tip: widget.model.availableTips[index],
+                      onCardTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    RelationshipTipsDetailScreen(
+                                      title: widget
+                                          .model.availableTips[index].subtitle,
+                                      relationTip:
+                                          widget.model.availableTips[index],
+                                      model: widget.model,
+                                      index: index,
+                                    )));
+                      },
+                    );
+                  },
+                )),
+              );
   }
 }

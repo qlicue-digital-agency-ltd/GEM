@@ -377,9 +377,10 @@ mixin UtilityModel on ConnectedGemModel {
 }
 
 mixin TipsModel on ConnectedGemModel {
+  bool _isFetchingTips;
   //all tips
   List<Tip> get availableTips => List<Tip>.from(_availableTips);
-
+  bool get isFetchingTips => _isFetchingTips;
   void likeTipToggle({@required tipId}) {
     //int index = _availableTips.indexWhere((w) => w.id == tipId);
 
@@ -388,6 +389,7 @@ mixin TipsModel on ConnectedGemModel {
 
   //fetch tips..
   Future<void> fetchTips() async {
+    _isFetchingTips = true;
     final List<Tip> _fetchTips = [];
     try {
       final http.Response response = await http.get(api + 'tips');
@@ -400,6 +402,7 @@ mixin TipsModel on ConnectedGemModel {
     } catch (error) {
       print(error);
     }
+    _isFetchingTips = false;
     notifyListeners();
   }
 }
@@ -407,7 +410,7 @@ mixin CasesModel on ConnectedGemModel {
   bool _isFetchingCases;
   //all Cases
   List<Case> get availableCases => List<Case>.from(_availableCase);
-bool get isFetchingCases => _isFetchingCases;
+  bool get isFetchingCases => _isFetchingCases;
   void likeCaseToggle({@required caseId}) {
     //  int index = _availableCase.indexWhere((w) => w.id == caseId);
 
@@ -429,7 +432,7 @@ bool get isFetchingCases => _isFetchingCases;
     } catch (error) {
       print(error);
     }
-_isFetchingCases = false;
+    _isFetchingCases = false;
     notifyListeners();
   }
 }
@@ -786,7 +789,6 @@ mixin UserModel on ConnectedGemModel {
 
         _authenticatedUser = User.fromMap(data['user']);
 
-    
         _sharedPref.save('user', data['user']);
         _hasUserProfile = true;
 
