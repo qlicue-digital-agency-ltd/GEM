@@ -395,13 +395,15 @@ mixin TipsModel on ConnectedGemModel {
     try {
       final http.Response response = await http.get(api + 'tips');
       final Map<String, dynamic> data = json.decode(response.body);
-      data['data'].forEach((_tipsData) {
+      data['tips'].forEach((_tipsData) {
         final _tip = Tip.fromMap(_tipsData);
         _fetchTips.add(_tip);
       });
+      _availableTips = _fetchTips;
     } catch (error) {
       print(error);
     }
+    notifyListeners();
   }
 }
 mixin CasesModel on ConnectedGemModel {
@@ -414,15 +416,15 @@ mixin CasesModel on ConnectedGemModel {
     notifyListeners();
   }
 
-  //fetch tips..
+  //fetch cases..
   Future<void> fetchCases() async {
     final List<Case> _fetchCases = [];
     try {
       final http.Response response = await http.get(api + 'stories');
       final Map<String, dynamic> data = json.decode(response.body);
       data['stories'].forEach((_caseData) {
-        final _tip = Case.fromMap(_caseData);
-        _fetchCases.add(_tip);
+        final _case = Case.fromMap(_caseData);
+        _fetchCases.add(_case);
       });
       _availableCase = _fetchCases;
     } catch (error) {

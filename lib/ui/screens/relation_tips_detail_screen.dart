@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:gem/models/tip.dart';
 import 'package:gem/scoped-model/main.dart';
+import 'package:gem/ui/widgets/adverts/image_advert.dart';
 import 'package:gem/util/util.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -92,43 +93,30 @@ class _RelationshipTipsDetailScreenState
                       value: SystemUiOverlayStyle.dark,
                       child: Padding(
                           padding: EdgeInsets.all(20),
-                          child: Text('BY: ' + widget.relationTip.author,
+                          child: Text('BY: ',
                               style: TextStyle(
                                 fontFamily: 'trajanProRegular',
                                 fontSize: 15.0,
                               )))),
+                ]),
+              ),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                return Column(children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 5),
-                    child: Text(widget.relationTip.paragraphs[0],
+                    child: Text(widget.relationTip.paragraphs[index].body,
                         style: TextStyle(
                           fontFamily: 'itikaf',
                           fontSize: 20.0,
                         )),
                   ),
-                  // ImageAdvert(
-                  //   advert: model.getAdds()[widget.relationTip.adds[0]],
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: Text(widget.relationTip.paragraphs[1],
-                        style: TextStyle(
-                          fontFamily: 'itikaf',
-                          fontSize: 20.0,
-                        )),
+                  ImageAdvert(
+                    advert: widget.relationTip.paragraphs[index].advert,
                   ),
-                  // ImageAdvert(
-                  //   advert: model.getAdds()[widget.relationTip.adds[1]],
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    child: Text(widget.relationTip.paragraphs[2],
-                        style: TextStyle(
-                          fontFamily: 'itikaf',
-                          fontSize: 20.0,
-                        )),
-                  ),
-                ]),
-              )
+                ]);
+              }, childCount: widget.relationTip.paragraphs.length))
             ],
           ),
         );
@@ -158,14 +146,10 @@ class _RelationshipTipsDetailScreenState
                         }),
                     ListTile(
                         leading: Icon(
-                          model.availableTips[widget.index].likeStatus
-                              ? Icons.favorite
-                              : Icons.favorite_border,
+                          Icons.favorite_border,
                           color: Colors.red,
                         ),
-                        title: Text(model.availableTips[widget.index].likeStatus
-                            ? 'Dislike'
-                            : 'Like'),
+                        title: Text('Like'),
                         onTap: () {
                           widget.model
                               .likeTipToggle(tipId: widget.relationTip.id);

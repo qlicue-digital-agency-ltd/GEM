@@ -58,12 +58,13 @@ class TipsCard extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ListTile(
-                            title: Text(tip.subtitle,
+                            title: Text(tip.title,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 20.0,
                                 )),
-                            subtitle: Text(tip.title,
+                            subtitle: Text(tip.paragraphs[0].body,
+                                maxLines: 4,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 18.0,
@@ -83,8 +84,7 @@ class TipsCard extends StatelessWidget {
                               padding: EdgeInsets.only(left: 10, right: 10),
                               child: Container(
                                 child: ImageHolder(
-                                  image:
-                                      'https://flutter.io/images/catalog-widget-placeholder.png',
+                                  image: tip.image,
                                 ),
                                 height: 100,
                                 width: 100,
@@ -114,9 +114,7 @@ class TipsCard extends StatelessWidget {
                                     model.likeTipToggle(tipId: tip.id);
                                   },
                                   child: Icon(
-                                    tip.likeStatus
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
+                                    Icons.favorite_border,
                                     color: Colors.red,
                                   ),
                                 ),
