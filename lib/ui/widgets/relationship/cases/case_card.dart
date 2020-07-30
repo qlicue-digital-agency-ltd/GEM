@@ -44,7 +44,7 @@ class CaseCard extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(relationCase.title,
+                      Text('',
                           style: TextStyle(
                             fontFamily: 'itikaf',
                             fontSize: 20.0,
@@ -59,12 +59,13 @@ class CaseCard extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ListTile(
-                            title: Text(relationCase.subtitle,
+                            title: Text(relationCase.title,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 20.0,
                                 )),
-                            subtitle: Text(relationCase.title,
+                            subtitle: Text(relationCase.paragraphs[0].body,
+                            maxLines: 4,
                                 style: TextStyle(
                                   fontFamily: 'itikaf',
                                   fontSize: 18.0,

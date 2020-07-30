@@ -420,7 +420,7 @@ mixin CasesModel on ConnectedGemModel {
     try {
       final http.Response response = await http.get(api + 'stories');
       final Map<String, dynamic> data = json.decode(response.body);
-      data['data'].forEach((_caseData) {
+      data['stories'].forEach((_caseData) {
         final _tip = Case.fromMap(_caseData);
         _fetchCases.add(_tip);
       });

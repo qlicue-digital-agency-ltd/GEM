@@ -14,15 +14,13 @@ class RelationshipCasesDetailScreen extends StatefulWidget {
   final String title;
   final Case relationCase;
   final MainModel model;
-  final int index;
 
-  const RelationshipCasesDetailScreen(
-      {Key key,
-      @required this.title,
-      @required this.relationCase,
-      @required this.model,
-      @required this.index})
-      : super(key: key);
+  const RelationshipCasesDetailScreen({
+    Key key,
+    @required this.title,
+    @required this.relationCase,
+    @required this.model,
+  }) : super(key: key);
 
   @override
   _RelationshipCasesDetailScreenState createState() =>
@@ -67,8 +65,7 @@ class _RelationshipCasesDetailScreenState
                     fit: StackFit.expand,
                     children: <Widget>[
                       ImageHolder(
-                        image:
-                            'https://flutter.io/images/catalog-widget-placeholder.png',
+                        image: widget.relationCase.image,
                       ),
                       DecoratedBox(
                         decoration: BoxDecoration(
@@ -99,8 +96,9 @@ class _RelationshipCasesDetailScreenState
                               )))),
                 ]),
               ),
-              SliverList(delegate:
-                  SliverChildBuilderDelegate((BuildContext context, int index) {
+              SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
                 return Column(children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 5),
@@ -114,7 +112,7 @@ class _RelationshipCasesDetailScreenState
                     advert: widget.relationCase.paragraphs[index].advert,
                   ),
                 ]);
-              }))
+              }, childCount: widget.relationCase.paragraphs.length))
             ],
           ),
         );

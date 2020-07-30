@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gem/scoped-model/main.dart';
+import 'package:gem/ui/screens/relation/cases_screen.dart';
 import 'package:gem/ui/screens/relation_tips_detail_screen.dart';
 
-import 'package:gem/ui/widgets/relationship/cases/case_card.dart';
 import 'package:gem/ui/widgets/relationship/meet/choices/choose_friends.dart';
 import 'package:gem/ui/widgets/relationship/meet/choices/result_choices.dart';
 
 import 'package:gem/ui/widgets/relationship/tips/tips_card.dart';
 import 'package:scoped_model/scoped_model.dart';
-
-import 'relationship_cases_detail_screen.dart';
 
 class FriendshipScreen extends StatefulWidget {
   final MainModel model;
@@ -97,27 +95,9 @@ class _FriendshipScreenState extends State<FriendshipScreen>
                           ),
                   ],
                 )),
-            Container(
-                child: ListView.builder(
-              itemCount: model.availableCases.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CaseCard(
-                  model: model,
-                  onCardTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RelationshipCasesDetailScreen(
-                                  title: model.availableCases[index].subtitle,
-                                  relationCase: model.availableCases[index],
-                                  index: index,
-                                  model: model,
-                                )));
-                  },
-                  relationCase: model.availableCases[index],
-                );
-              },
-            )),
+            CasesScreen(
+              model: model,
+            ),
             Container(
                 child: ListView.builder(
               itemCount: model.availableTips.length,

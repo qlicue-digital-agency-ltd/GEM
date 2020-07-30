@@ -34,7 +34,7 @@ class ImageAdvert extends StatelessWidget {
                         child: Image(
                               height: 100,
                               fit: BoxFit.cover,
-                              image: AssetImage(advert.image))
+                              image: NetworkImage(advert.image))
                       ),
                     )
                   ],

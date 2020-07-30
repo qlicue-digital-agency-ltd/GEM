@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:gem/models/paragraph.dart';
 import 'package:meta/meta.dart';
 
 class Tip {
@@ -6,32 +7,31 @@ class Tip {
   final String title;
   final String time;
   final String subtitle;
-
+  final String slug;
   final String image;
-  final List<int> adds;
-  final List<dynamic> paragraphs;
-  final String author;
-  final bool likeStatus;
+  final List<Paragraph> paragraphs;
 
-  Tip(
-      {@required this.id,
-      @required this.title,
-      @required this.time,
-      @required this.subtitle,
-      @required this.image,
-      @required this.likeStatus,
-      @required this.adds,
-      @required this.paragraphs,
-      @required this.author});
+  Tip({
+    @required this.id,
+    @required this.title,
+    @required this.subtitle,
+    @required this.slug,
+    @required this.image,
+    @required this.time,
+    @required this.paragraphs,
+  });
 
   Tip.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
+      : assert(map['id'] != null),
+        id = map['id'],
         title = map['title'],
-        time = map['time'],
-        subtitle = map['slug'],
-        likeStatus = map['likeStatus'],
-        author = map['author'],
-        adds = map['adds'],
+        subtitle = map['subtitle'],
+        slug = map['slug'],
         image = map['image'],
-        paragraphs = map['paragraphs'];
+        time = map['time'],
+        paragraphs = map['paragraphs'] != null
+            ? (map['paragraphs'] as List)
+                .map((i) => Paragraph.fromMap(i))
+                .toList()
+            : null;
 }
