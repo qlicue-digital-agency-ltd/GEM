@@ -113,29 +113,31 @@ class CaseCard extends StatelessWidget {
                                       color: ThemeColor.Colors.gemPrimaryColor,
                                     ),
                                   )),
-                              Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.question_answer,
-                                    color: ThemeColor.Colors.gemPrimaryColor,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: () {
-                                    model.likeCaseToggle(
-                                        caseId: relationCase.id);
-                                  },
-                                  child: Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
+                              // Expanded(
+                              //   flex: 1,
+                              //   child: InkWell(
+                              //     onTap: () {},
+                              //     child: Icon(
+                              //       Icons.question_answer,
+                              //       color: ThemeColor.Colors.gemPrimaryColor,
+                              //     ),
+                              //   ),
+                              // ),
+                              // Expanded(
+                              //   flex: 1,
+                              //   child: InkWell(
+                              //     onTap: () {
+                              //       model.likeCaseToggle(
+                              //           caseId: relationCase.id);
+                              //     },
+                              //     child: Icon(
+                              //       Icons.favorite_border,
+                              //       color: Colors.red,
+                              //     ),
+                              //   ),
+                              // ),
+                           
+                           
                             ],
                           ),
                           SizedBox(

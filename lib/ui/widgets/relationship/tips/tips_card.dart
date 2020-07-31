@@ -113,18 +113,20 @@ class TipsCard extends StatelessWidget {
                                       color: ThemeColor.Colors.gemPrimaryColor,
                                     ),
                                   )),
-                              Expanded(
-                                flex: 1,
-                                child: InkWell(
-                                  onTap: () {
-                                    model.likeTipToggle(tipId: tip.id);
-                                  },
-                                  child: Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
+                              // Expanded(
+                              //   flex: 1,
+                              //   child: InkWell(
+                              //     onTap: () {
+                              //       model.likeTipToggle(tipId: tip.id);
+                              //     },
+                              //     child: Icon(
+                              //       Icons.favorite_border,
+                              //       color: Colors.red,
+                              //     ),
+                              //   ),
+                              // ),
+                            
+                            
                             ],
                           ),
                           SizedBox(
