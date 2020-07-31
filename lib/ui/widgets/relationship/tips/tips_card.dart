@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem/constants/constants.dart';
 import 'package:gem/models/tip.dart';
 import 'package:gem/scoped-model/main.dart';
 import 'package:share/share.dart';
@@ -102,8 +103,10 @@ class TipsCard extends StatelessWidget {
                                   flex: 1,
                                   child: InkWell(
                                     onTap: () {
-                                      Share.share(
-                                          'check out my website https://example.com');
+                                      Share.share('Read ' +
+                                          tip.title +
+                                          'here ' +
+                                          playstore);
                                     },
                                     child: Icon(
                                       Icons.share,

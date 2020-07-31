@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gem/constants/constants.dart';
 import 'package:gem/models/case.dart';
 import 'package:gem/scoped-model/main.dart';
 
@@ -102,8 +103,10 @@ class CaseCard extends StatelessWidget {
                                   flex: 1,
                                   child: InkWell(
                                     onTap: () {
-                                      Share.share(
-                                          'check out my website https://qlicue.co.tz.com');
+                                      Share.share('Read ' +
+                                          relationCase.title +
+                                          'here ' +
+                                          playstore);
                                     },
                                     child: Icon(
                                       Icons.share,

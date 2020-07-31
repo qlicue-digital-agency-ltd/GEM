@@ -14,3 +14,5 @@ String addAccountScreen = '/AddAccountScreen';
 String manageAccountScreen = '/ManageAccountScreen';
 String personalDetailScreen = '/PersonalDetailScreen';
 String onBoardingScreen = '/onboardingScreen';
+
+const playstore = "";
